@@ -11,6 +11,15 @@ Globals:
     Timeout: 30
 
 Resources:
+  ApiGatewayApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: Prod
+      Cors:
+        AllowMethods: "'GET'"
+        AllowHeaders: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,x-requested-with'"
+        AllowOrigin: "'*'"
+
   TrafficAggregatorFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -23,6 +32,8 @@ Resources:
           Properties:
             Path: /traffic
             Method: get
+            RestApiId:
+              Ref: ApiGatewayApi
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
@@ -30,7 +41,7 @@ Outputs:
   # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
   TrafficAggregatorAPI:
     Description: "API Gateway endpoint URL for Prod stage for Traffic Aggregator function"
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/traffic/"
+    Value: !Sub "https://${ApiGatewayApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/traffic/"
   TrafficAggregatorFunction:
     Description: "Traffic Aggregator Lambda Function ARN"
     Value: !GetAtt TrafficAggregatorFunction.Arn
