@@ -8,17 +8,17 @@ Description: >
 
 Globals:
   Function:
-    Timeout: 3
+    Timeout: 30
 
 Resources:
   TrafficAggregatorFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: traffic_aggregator/
-      Handler: app.lambda_handler
+      CodeUri: .
+      Handler: traffic_aggregator.app.lambda_handler
       Runtime: python3.8
       Events:
-        HelloWorld:
+        TrafficAggregatorAPI:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
             Path: /traffic
@@ -29,11 +29,11 @@ Outputs:
   # Find out more about other implicit resources you can reference within SAM
   # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
   HelloWorldApi:
-    Description: "API Gateway endpoint URL for Prod stage for Hello World function"
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/"
+    Description: "API Gateway endpoint URL for Prod stage for Traffic Aggregator function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/traffic/"
   HelloWorldFunction:
-    Description: "Hello World Lambda Function ARN"
+    Description: "Traffic Aggregator Lambda Function ARN"
     Value: !GetAtt TrafficAggregatorFunction.Arn
   HelloWorldFunctionIamRole:
-    Description: "Implicit IAM Role created for Hello World function"
+    Description: "Implicit IAM Role created for Traffic Aggregator function"
     Value: !GetAtt TrafficAggregatorFunction.Arn
