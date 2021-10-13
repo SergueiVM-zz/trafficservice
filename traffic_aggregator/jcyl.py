@@ -40,8 +40,8 @@ def get_events_from_jcyl():
 
 def convert(item):
     return {
-        "provincia": pydash.get(item, "provincia"),
-        "icono": "http://servicios.jcyl.es/InviPublica/resources/images/grid/{{icono}}".format(
+        "provincia": get_provincia(item),
+        "icono": "http://servicios.jcyl.es/InviPublica/resources/images/grid/{icono}".format(
             icono=pydash.get(item, "imgCausa")),
         "alias": pydash.get(item, "nomTramo"),
         "descripcion": "{nomTramo} {obsFija}. {obsVariable}. {rutaAlternativa}".format(
