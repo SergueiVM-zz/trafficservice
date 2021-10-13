@@ -19,16 +19,21 @@ def get_events_from_bizkaimove():
 
 
 def convert(item):
+    referencia = pydash.get(item, "referencia")
+    tipo = pydash.get(item, "tipo")
+    referencia = pydash.get(item, "referencia")
+    sentido = pydash.get(item, "sentido")
+    tipo = pydash.get(item, "tipo")
+    carretera = pydash.get(item, "carretera")
+
     return {
         "provincia": "BIZKAIA",
         "icono": None,
-        "alias": pydash.get(item, "referencia"),
-        "descripcion": "{tipo}: {referencia} {sentido}".format(tipo=pydash.get(item, "tipo"),
-                                                               referencia=pydash.get(item, "referencia"),
-                                                               sentido=pydash.get(item, "sentido")),
-        "suceso": pydash.get(item, "tipo"),
-        "causa": pydash.get(item, "tipo"),
-        "carretera": pydash.get(item, "carretera")
+        "alias": f"{carretera} {referencia}",
+        "descripcion": f"{tipo}: {referencia} {carretera} {sentido}",
+        "suceso": tipo,
+        "causa": tipo.upper(),
+        "carretera": carretera
     }
 
 
