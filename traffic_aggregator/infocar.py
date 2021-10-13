@@ -15,7 +15,7 @@ def get_events_from_infocar():
 def convert(item):
     return {
         "provincia": pydash.get(item, "provincia"),
-        "icono": "https://infocar.dgt.es/etraffic/img/iconosIncitar/{{icono}}".format(icono=pydash.get(item, "icono")),
+        "icono": "https://infocar.dgt.es/etraffic/img/iconosIncitar/{icono}".format(icono=pydash.get(item, "icono")),
         "alias": pydash.get(item, "alias"),
         "descripcion": pydash.get(item, "descripcion"),
         "suceso": pydash.get(item, "suceso"),
