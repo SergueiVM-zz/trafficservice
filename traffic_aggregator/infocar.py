@@ -9,11 +9,11 @@ INFOCAR_URL = "https://infocar.dgt.es/etraffic/BuscarElementos?latNS=44&longNS=5
 @log
 def get_events_from_infocar():
     try:
-        infocar_response = requests.get(INFOCAR_URL)
+        infocar_response = requests.get(INFOCAR_URL, verify=False)
         infocar = infocar_response.json()
     except Exception as error:
         print("ERROR: Getting info from Inforcar" + str(error))
-        infocar = []
+        inforcar = []
 
     return convert_list(infocar)
 

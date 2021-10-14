@@ -11,7 +11,7 @@ BIZKAIMOVE_URL = "https://www.bizkaimove.com/bm/consulta.json?solicitud=2"
 @log
 def get_events_from_bizkaimove():
     try:
-        bizkaimove_response = requests.get(BIZKAIMOVE_URL)
+        bizkaimove_response = requests.get(BIZKAIMOVE_URL, verify=False)
         bizkaimove = bizkaimove_response.text
         bizkaimove = bizkaimove[1:]
         bizkaimove = bizkaimove[:-1]
