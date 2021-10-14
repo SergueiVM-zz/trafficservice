@@ -1,8 +1,5 @@
 import json
 
-import pydash
-import requests
-
 from traffic_aggregator import log
 from traffic_aggregator.bizkaimove import get_events_from_bizkaimove
 from traffic_aggregator.infocar import get_events_from_infocar

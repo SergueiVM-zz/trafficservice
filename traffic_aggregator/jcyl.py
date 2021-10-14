@@ -61,5 +61,4 @@ def convert_list(items):
 
 def get_provincia(item):
     cod_provincia = pydash.get(item, "codProv", "0")
-    print(cod_provincia)
     return pydash.get(PROVINCIAS, cod_provincia, "CASTILLA y LEÓN")
