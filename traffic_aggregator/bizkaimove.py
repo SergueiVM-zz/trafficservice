@@ -10,11 +10,16 @@ BIZKAIMOVE_URL = "https://www.bizkaimove.com/bm/consulta.json?solicitud=2"
 
 @log
 def get_events_from_bizkaimove():
-    bizkaimove_response = requests.get(BIZKAIMOVE_URL, verify=False)
-    bizkaimove = bizkaimove_response.text
-    bizkaimove = bizkaimove[1:]
-    bizkaimove = bizkaimove[:-1]
-    bizkaimove = pydash.get(json.loads(bizkaimove), "incidencias.incidencia", [])
+    try:
+        bizkaimove_response = requests.get(BIZKAIMOVE_URL, verify=False)
+        bizkaimove = bizkaimove_response.text
+        bizkaimove = bizkaimove[1:]
+        bizkaimove = bizkaimove[:-1]
+
+        bizkaimove = pydash.get(json.loads(bizkaimove), "incidencias.incidencia", [])
+    except Exception as error:
+        print("ERROR: Getting info from Bizkaimove" + str(error))
+        bizkaimove = []
     return convert_list(bizkaimove)
 
 

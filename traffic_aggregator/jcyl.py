@@ -22,19 +22,24 @@ PROVINCIAS = {
 
 @log
 def get_events_from_jcyl():
-    payload = json.dumps({
-        "params": [
-            None,
-            None,
-            None,
-            None,
-            {}
-        ],
-        "method": "getIncidenciasActivas",
-        "id": 1
-    })
-    jcyl_response = requests.post(JCYL_URL, data=payload)
-    jcyl = pydash.get(jcyl_response.json(), "result", [])
+    try:
+        payload = json.dumps({
+            "params": [
+                None,
+                None,
+                None,
+                None,
+                {}
+            ],
+            "method": "getIncidenciasActivas",
+            "id": 1
+        })
+        jcyl_response = requests.post(JCYL_URL, data=payload)
+        jcyl = pydash.get(jcyl_response.json(), "result", [])
+    except Exception as error:
+        print("ERROR: Getting info from JCyL" + str(error))
+        jcyl = []
+
     return convert_list(jcyl)
 
 
@@ -45,10 +50,10 @@ def convert(item):
             icono=pydash.get(item, "imgCausa")),
         "alias": pydash.get(item, "nomTramo"),
         "descripcion": "{nomTramo} {obsFija}. {obsVariable}. {rutaAlternativa}".format(
-            nomTramo=pydash.get(item, "nomTramo"),
-            obsFija=pydash.get(item, "obsFija"),
-            obsVariable=pydash.get(item, "obsVariable"),
-            rutaAlternativa=pydash.get(item, "rutaAlternativa")),
+            nomTramo=pydash.get(item, "nomTramo", ""),
+            obsFija=pydash.get(item, "obsFija", ""),
+            obsVariable=pydash.get(item, "obsVariable", ""),
+            rutaAlternativa=pydash.get(item, "rutaAlternativa", "")),
         "suceso": pydash.get(item, "txtTipo"),
         "causa": pydash.get(item, "txtCausa"),
         "carretera": pydash.get(item, "codVial")
@@ -56,7 +61,7 @@ def convert(item):
 
 
 def convert_list(items):
-    return [convert(item) for item in items]
+    return [convert(item) for item in items if pydash.get(item, "txtCausa", "").lower() != "obras"]
 
 
 def get_provincia(item):

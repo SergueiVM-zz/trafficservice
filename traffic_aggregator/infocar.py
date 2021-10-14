@@ -8,8 +8,14 @@ INFOCAR_URL = "https://infocar.dgt.es/etraffic/BuscarElementos?latNS=44&longNS=5
 
 @log
 def get_events_from_infocar():
-    infocar_response = requests.get(INFOCAR_URL, verify=False)
-    return convert_list(infocar_response.json())
+    try:
+        infocar_response = requests.get(INFOCAR_URL, verify=False)
+        infocar = infocar_response.json()
+    except Exception as error:
+        print("ERROR: Getting info from Inforcar" + str(error))
+        inforcar = []
+
+    return convert_list(infocar)
 
 
 def convert(item):
