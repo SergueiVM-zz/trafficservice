@@ -48,8 +48,11 @@ def convert(item):
         "provincia": get_provincia(item),
         "icono": "http://servicios.jcyl.es/InviPublica/resources/images/grid/{icono}".format(
             icono=pydash.get(item, "imgCausa")),
-        "alias": pydash.get(item, "nomTramo"),
-        "descripcion": "{nomTramo} {obsFija}. {obsVariable}. {rutaAlternativa}".format(
+        "alias": "{codVial} {nomTramo}".format(
+            codVial=pydash.get(item, "codVial", ""),
+            nomTramo=pydash.get(item, "nomTramo", "")),
+        "descripcion": "{codVial} {nomTramo} {obsFija}. {obsVariable}. {rutaAlternativa}".format(
+            codVial=pydash.get(item, "codVial", ""),
             nomTramo=pydash.get(item, "nomTramo", ""),
             obsFija=pydash.get(item, "obsFija", ""),
             obsVariable=pydash.get(item, "obsVariable", ""),
