@@ -43,4 +43,4 @@ def convert(item):
 
 
 def convert_list(items):
-    return [convert(item) for item in items]
+    return [convert(item) for item in items if pydash.get(item, "tipo", "").lower() != "obra"]
