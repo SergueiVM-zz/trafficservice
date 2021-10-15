@@ -7,7 +7,7 @@ INFOCAR_URL = "https://infocar.dgt.es/etraffic/BuscarElementos?latNS=44&longNS=5
 
 
 @log
-async def get_events_from_infocar():
+def get_events_from_infocar():
     try:
         infocar_response = requests.get(INFOCAR_URL, verify=False)
         infocar = infocar_response.json()

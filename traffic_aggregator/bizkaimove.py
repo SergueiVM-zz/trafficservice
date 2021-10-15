@@ -9,7 +9,7 @@ BIZKAIMOVE_URL = "https://www.bizkaimove.com/bm/consulta.json?solicitud=2"
 
 
 @log
-async def get_events_from_bizkaimove():
+def get_events_from_bizkaimove():
     try:
         bizkaimove_response = requests.get(BIZKAIMOVE_URL, verify=False)
         bizkaimove = bizkaimove_response.text
