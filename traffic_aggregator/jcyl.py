@@ -21,7 +21,7 @@ PROVINCIAS = {
 
 
 @log
-def get_events_from_jcyl():
+async def get_events_from_jcyl():
     try:
         payload = json.dumps({
             "params": [
